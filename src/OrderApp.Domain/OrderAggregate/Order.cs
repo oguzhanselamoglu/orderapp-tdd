@@ -11,5 +11,10 @@ namespace OrderApp.Domain.OrderAggregate
     {
         public decimal TotalPrice { get; set; }
         public List<OrderItem> Items { get; set; } = new();
+
+        public void AddItem(OrderItem orderItem)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
