@@ -9,12 +9,15 @@ namespace OrderApp.Domain.OrderAggregate
 {
     public class Order
     {
-        public decimal TotalPrice { get; set; }
-        public List<OrderItem> Items { get; set; } = new();
+        public decimal TotalPrice => Items.Sum(r=>r.Amount * r.Price);
+
+        private List<OrderItem> _items { get; set; } = new();
+        public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
 
         public void AddItem(OrderItem orderItem)
         {
-            throw new NotImplementedException();
+            _items.Add(orderItem);
+            
         }
     }
 }
