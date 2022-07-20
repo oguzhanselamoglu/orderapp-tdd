@@ -19,8 +19,21 @@ namespace OrderApp.Domain.Tests
         }
 
         [Fact]
+        public void Should_ThrowException_When_AddOrder_If_ItemIsNull()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() =>
+            {
+                _order.AddItem(null);
+            });
+
+            Assert.NotNull(exception);
+            Assert.Equal("orderItem",exception.ParamName);
+        }
+
+        [Fact]
         public void Should_Succeed_When_AddOrder()
         {
+            
             _order.AddItem(new OrderItem("Product 1", 1, 100M));
             _order.AddItem(new OrderItem("Product 2", 2, 200M));
 
@@ -29,5 +42,7 @@ namespace OrderApp.Domain.Tests
             Assert.Equal(2,_order.Items.Count);
 
         }
+
+
     }
 }

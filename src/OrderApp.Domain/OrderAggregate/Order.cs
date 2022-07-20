@@ -16,6 +16,8 @@ namespace OrderApp.Domain.OrderAggregate
 
         public void AddItem(OrderItem orderItem)
         {
+            ArgumentNullException.ThrowIfNull(orderItem, nameof(orderItem));
+
             _items.Add(orderItem);
             
         }
