@@ -34,13 +34,23 @@ namespace OrderApp.Domain.Tests
         public void Should_Succeed_When_AddOrder()
         {
             
-            _order.AddItem(new OrderItem("Product 1", 1, 100M));
-            _order.AddItem(new OrderItem("Product 2", 2, 200M));
+            _order.AddItem(new OrderItem(1,"Product 1", 1, 100M));
+            _order.AddItem(new OrderItem(2,"Product 2", 2, 200M));
 
 
             Assert.Equal(500, _order.TotalPrice);
             Assert.Equal(2,_order.Items.Count);
 
+        }
+
+        [Fact]
+        public void Should_Succeed_When_RemoveItem()
+        {
+            _order.AddItem(new OrderItem(1, "Product 1", 1, 100M));
+            _order.AddItem(new OrderItem(2, "Product 2", 2, 200M));
+            _order.RemoveItem(1);
+            Assert.Equal(400,_order.TotalPrice);
+            Assert.Single(_order.Items);
         }
 
 

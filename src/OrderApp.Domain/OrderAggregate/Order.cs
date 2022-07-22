@@ -21,5 +21,11 @@ namespace OrderApp.Domain.OrderAggregate
             _items.Add(orderItem);
             
         }
+
+        public void RemoveItem(int id)
+        {
+            _items.RemoveAll(r => r.Id == id);
+            
+        }
     }
 }
