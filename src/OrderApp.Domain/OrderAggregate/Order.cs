@@ -9,6 +9,10 @@ namespace OrderApp.Domain.OrderAggregate
         private List<OrderItem> _items { get; set; } = new();
         public IReadOnlyList<OrderItem> Items => _items.AsReadOnly();
 
+        private List<PaymentItem> _payments { get; set; } = new();
+        public IReadOnlyList<PaymentItem> Payments => _payments.AsReadOnly();
+
+        public decimal TotalPayment => Payments.Where(r => !r.Deleted).Sum(r => r.Amount);
         public void AddItem(OrderItem orderItem)
         {
             ArgumentNullException.ThrowIfNull(orderItem, nameof(orderItem));
@@ -26,6 +30,13 @@ namespace OrderApp.Domain.OrderAggregate
 
             item.Deleted = true;
             
+        }
+
+        public void AddPayment(PaymentItem paymentItem)
+        {
+            ArgumentNullException.ThrowIfNull(paymentItem,nameof(paymentItem));
+
+            _payments.Add(paymentItem);
         }
     }
 }

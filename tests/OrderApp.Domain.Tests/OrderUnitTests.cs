@@ -66,5 +66,27 @@ namespace OrderApp.Domain.Tests
             Assert.Equal("Item could not found", exception.Message);
         }
 
+        [Fact]
+        public void Should_Succeed_When_AddPayment()
+        {
+            _order.AddPayment(new PaymentItem("TL", 100M, 1));
+            _order.AddPayment(new PaymentItem("TL", 200M, 1));
+
+            Assert.Equal(300, _order.TotalPayment);
+
+        }
+
+        [Fact]
+        public void Should_ThrowException_When_AddPayment_If_ItemIsNull()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() =>
+            {
+                _order.AddPayment(null);
+            });
+
+            Assert.NotNull(exception);
+            Assert.Equal("paymentItem", exception.ParamName);
+        }
+
     }
 }
